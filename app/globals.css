@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 0 0% 100%;
+  --foreground: 210 15% 15%;
+  --primary: 154 63% 33%; /* lab green, approx #1F8A5B; to be sampled from the final logo */
+  --primary-foreground: 0 0% 100%;
+  --tint: 150 40% 95%;
+  --muted: 150 20% 96%;
+  --muted-foreground: 210 10% 40%;
+  --border: 150 15% 85%;
+  --input: 150 10% 70%;
+  --destructive: 0 70% 42%;
+  --warning: 38 92% 40%;
+}
+
+body {
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+}

@@ -1,0 +1,43 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum Role {
+  PATIENT
+  OWNER
+}
+
+enum Sex {
+  MALE
+  FEMALE
+}
+
+model User {
+  id           String    @id @default(cuid())
+  role         Role      @default(PATIENT)
+  name         String
+  phone        String    @unique
+  sex          Sex
+  age          Int
+  passwordHash String
+  failedLogins Int       @default(0)
+  lockedUntil  DateTime?
+  createdAt    DateTime  @default(now())
+  sessions     Session[]
+}
+
+model Session {
+  id        String   @id // SHA-256 hash of the cookie token
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}
